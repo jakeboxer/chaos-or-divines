@@ -31,23 +31,17 @@ function App() {
     const baseDivineVal = parseFloat(baseDivine);
     const baseChaosVal = parseFloat(baseChaos);
 
-    // Validate inputs
-    if (
-      isNaN(chaosChaosVal) ||
-      chaosChaosVal <= 0 ||
-      isNaN(chaosYoursVal) ||
-      chaosYoursVal <= 0 ||
-      isNaN(divineDivineVal) ||
-      divineDivineVal <= 0 ||
-      isNaN(divineYoursVal) ||
-      divineYoursVal <= 0 ||
-      isNaN(baseDivineVal) ||
-      baseDivineVal <= 0 ||
-      isNaN(baseChaosVal) ||
-      baseChaosVal <= 0
-    ) {
-      return null; // Invalid input
-    }
+    const vals = [
+      chaosChaosVal,
+      chaosYoursVal,
+      divineDivineVal,
+      divineYoursVal,
+      baseDivineVal,
+      baseChaosVal,
+    ];
+
+    // Validate all values are numbers and greater than 0.
+    if (vals.some((val) => isNaN(val) || val <= 0)) return null;
 
     // Calculate how much Chaos you get per 1 of Your Currency via each path
     // Path 1: Direct conversion to Chaos
