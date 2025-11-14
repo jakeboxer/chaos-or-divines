@@ -1,11 +1,27 @@
+import { useState } from "react";
 import { BadgeDollarSign } from "lucide-react";
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupInput,
 } from "@/components/ui/input-group";
+import { Button } from "@/components/ui/button";
+
+type BestExchange = "chaos" | "divine" | null;
 
 function App() {
+  const [bestExchange, setBestExchange] = useState<BestExchange>(null);
+
+  // Placeholder calculate function - returns random result
+  const calculateBestExchange = (): BestExchange => {
+    return Math.random() > 0.5 ? "chaos" : "divine";
+  };
+
+  const handleCalculate = () => {
+    const result = calculateBestExchange();
+    setBestExchange(result);
+  };
+
   return (
     <div className="flex min-h-svh flex-col items-center justify-center bg-background p-8">
       <div className="w-full max-w-3xl space-y-8">
@@ -21,7 +37,13 @@ function App() {
         <div className="space-y-6">
           {/* Chaos Orbs : Your Currency */}
           <div className="space-y-2">
-            <div className="flex items-center gap-2">
+            <div
+              className={`flex items-center gap-2 transition-all ${
+                bestExchange === "chaos"
+                  ? "ring-4 ring-green-500 rounded-lg p-2 bg-green-500/10"
+                  : ""
+              }`}
+            >
               <InputGroup className="flex-1 h-20">
                 <InputGroupAddon className="px-4">
                   <img
@@ -56,7 +78,13 @@ function App() {
 
           {/* Divine Orbs : Your Currency */}
           <div className="space-y-2">
-            <div className="flex items-center gap-2">
+            <div
+              className={`flex items-center gap-2 transition-all ${
+                bestExchange === "divine"
+                  ? "ring-4 ring-green-500 rounded-lg p-2 bg-green-500/10"
+                  : ""
+              }`}
+            >
               <InputGroup className="flex-1 h-20">
                 <InputGroupAddon className="px-4">
                   <img
@@ -126,6 +154,17 @@ function App() {
                 />
               </InputGroup>
             </div>
+          </div>
+
+          {/* Calculate Button */}
+          <div className="flex justify-center pt-4">
+            <Button
+              onClick={handleCalculate}
+              size="lg"
+              className="text-xl px-8 py-6"
+            >
+              Calculate Best Exchange
+            </Button>
           </div>
         </div>
 
