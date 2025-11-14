@@ -6,11 +6,13 @@ import {
   InputGroupInput,
 } from "@/components/ui/input-group";
 import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
 
 type BestExchange = "chaos" | "divine" | null;
 
 function App() {
   const [bestExchange, setBestExchange] = useState<BestExchange>(null);
+  const [amountToSell, setAmountToSell] = useState<string>("");
 
   // Placeholder calculate function - returns random result
   const calculateBestExchange = (): BestExchange => {
@@ -164,6 +166,33 @@ function App() {
                 />
               </InputGroup>
             </div>
+          </div>
+
+          {/* Amount to Sell */}
+          <div className="flex items-center gap-4 pt-4">
+            <Label
+              htmlFor="amount-to-sell"
+              className="text-lg whitespace-nowrap"
+            >
+              How many of your currency do you want to sell?
+            </Label>
+            <InputGroup className="h-16 flex-1">
+              <InputGroupAddon className="px-4">
+                <BadgeDollarSign className="size-8" />
+              </InputGroupAddon>
+              <InputGroupInput
+                id="amount-to-sell"
+                type="number"
+                placeholder="Optional"
+                step="0.01"
+                value={amountToSell}
+                onChange={(e) => {
+                  setAmountToSell(e.target.value);
+                  handleInputChange();
+                }}
+                className="text-xl!"
+              />
+            </InputGroup>
           </div>
 
           {/* Calculate Button */}
