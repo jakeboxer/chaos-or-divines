@@ -71,7 +71,7 @@ function App() {
 
   return (
     <div className="flex min-h-svh flex-col items-center bg-background p-8">
-      <div className="w-full max-w-3xl space-y-8">
+      <div className="w-full max-w-2xl space-y-8">
         <div className="text-center">
           <h1 className="text-3xl font-bold tracking-tight">
             Chaos or Divines?
@@ -85,107 +85,121 @@ function App() {
           {/* Chaos Orbs : Your Currency */}
           <div className="space-y-2">
             <div
-              className={`flex items-center gap-2 transition-all ${
+              className={`transition-all ${
                 bestExchange === "chaos"
-                  ? "ring-4 ring-green-500 rounded-lg p-2 bg-green-500/10"
+                  ? "ring-4 ring-green-500 rounded-lg p-2 bg-green-500/10 space-y-2"
                   : ""
               }`}
             >
-              <InputGroup className="flex-1 h-20">
-                <InputGroupAddon className="px-4">
-                  <img
-                    src="/images/chaos.webp"
-                    alt="Chaos Orb"
-                    className="size-16"
+              {bestExchange === "chaos" && (
+                <div className="text-center text-lg font-bold text-green-600 dark:text-green-400">
+                  Best Exchange
+                </div>
+              )}
+              <div className="flex items-center gap-2">
+                <InputGroup className="flex-1 h-20">
+                  <InputGroupAddon className="px-4">
+                    <img
+                      src="/images/chaos.webp"
+                      alt="Chaos Orb"
+                      className="size-16"
+                    />
+                  </InputGroupAddon>
+                  <InputGroupInput
+                    id="chaos-currency-chaos"
+                    type="number"
+                    placeholder="Chaos Orbs"
+                    step="0.01"
+                    className="text-2xl!"
+                    value={chaosChaos}
+                    onChange={(e) => {
+                      setChaosChaos(e.target.value);
+                      handleInputChange();
+                    }}
                   />
-                </InputGroupAddon>
-                <InputGroupInput
-                  id="chaos-currency-chaos"
-                  type="number"
-                  placeholder="Chaos Orbs"
-                  step="0.01"
-                  className="text-2xl!"
-                  value={chaosChaos}
-                  onChange={(e) => {
-                    setChaosChaos(e.target.value);
-                    handleInputChange();
-                  }}
-                />
-              </InputGroup>
-              <span className="text-2xl text-muted-foreground">:</span>
-              <InputGroup className="flex-1 h-20">
-                <InputGroupAddon className="px-4">
-                  <BadgeDollarSign className="size-16" />
-                </InputGroupAddon>
-                <InputGroupInput
-                  id="chaos-currency-your"
-                  type="number"
-                  placeholder="Your Currency"
-                  step="0.01"
-                  className="text-2xl!"
-                  value={chaosYours}
-                  onChange={(e) => {
-                    setChaosYours(e.target.value);
-                    handleInputChange();
-                  }}
-                />
-              </InputGroup>
+                </InputGroup>
+                <span className="text-2xl text-muted-foreground">:</span>
+                <InputGroup className="flex-1 h-20">
+                  <InputGroupAddon className="px-4">
+                    <BadgeDollarSign className="size-16" />
+                  </InputGroupAddon>
+                  <InputGroupInput
+                    id="chaos-currency-your"
+                    type="number"
+                    placeholder="Your Currency"
+                    step="0.01"
+                    className="text-2xl!"
+                    value={chaosYours}
+                    onChange={(e) => {
+                      setChaosYours(e.target.value);
+                      handleInputChange();
+                    }}
+                  />
+                </InputGroup>
+              </div>
             </div>
           </div>
 
           {/* Divine Orbs : Your Currency */}
           <div className="space-y-2">
             <div
-              className={`flex items-center gap-2 transition-all ${
+              className={`transition-all ${
                 bestExchange === "divine"
-                  ? "ring-4 ring-green-500 rounded-lg p-2 bg-green-500/10"
+                  ? "ring-4 ring-green-500 rounded-lg p-2 bg-green-500/10 space-y-2"
                   : ""
               }`}
             >
-              <InputGroup className="flex-1 h-20">
-                <InputGroupAddon className="px-4">
-                  <img
-                    src="/images/divine.webp"
-                    alt="Divine Orb"
-                    className="size-16"
+              {bestExchange === "divine" && (
+                <div className="text-center text-lg font-bold text-green-600 dark:text-green-400">
+                  Best Exchange
+                </div>
+              )}
+              <div className="flex items-center gap-2">
+                <InputGroup className="flex-1 h-20">
+                  <InputGroupAddon className="px-4">
+                    <img
+                      src="/images/divine.webp"
+                      alt="Divine Orb"
+                      className="size-16"
+                    />
+                  </InputGroupAddon>
+                  <InputGroupInput
+                    id="divine-currency-divine"
+                    type="number"
+                    placeholder="Divine Orbs"
+                    step="0.01"
+                    className="text-2xl!"
+                    value={divineDivine}
+                    onChange={(e) => {
+                      setDivineDivine(e.target.value);
+                      handleInputChange();
+                    }}
                   />
-                </InputGroupAddon>
-                <InputGroupInput
-                  id="divine-currency-divine"
-                  type="number"
-                  placeholder="Divine Orbs"
-                  step="0.01"
-                  className="text-2xl!"
-                  value={divineDivine}
-                  onChange={(e) => {
-                    setDivineDivine(e.target.value);
-                    handleInputChange();
-                  }}
-                />
-              </InputGroup>
-              <span className="text-2xl text-muted-foreground">:</span>
-              <InputGroup className="flex-1 h-20">
-                <InputGroupAddon className="px-4">
-                  <BadgeDollarSign className="size-16" />
-                </InputGroupAddon>
-                <InputGroupInput
-                  id="divine-currency-your"
-                  type="number"
-                  placeholder="Your Currency"
-                  step="0.01"
-                  className="text-2xl!"
-                  value={divineYours}
-                  onChange={(e) => {
-                    setDivineYours(e.target.value);
-                    handleInputChange();
-                  }}
-                />
-              </InputGroup>
+                </InputGroup>
+                <span className="text-2xl text-muted-foreground">:</span>
+                <InputGroup className="flex-1 h-20">
+                  <InputGroupAddon className="px-4">
+                    <BadgeDollarSign className="size-16" />
+                  </InputGroupAddon>
+                  <InputGroupInput
+                    id="divine-currency-your"
+                    type="number"
+                    placeholder="Your Currency"
+                    step="0.01"
+                    className="text-2xl!"
+                    value={divineYours}
+                    onChange={(e) => {
+                      setDivineYours(e.target.value);
+                      handleInputChange();
+                    }}
+                  />
+                </InputGroup>
+              </div>
             </div>
           </div>
 
           {/* Divine Orbs : Chaos Orbs */}
-          <div className="space-y-2">
+          <div className="space-y-2 pt-6 border-t">
             <div className="flex items-center gap-2">
               <InputGroup className="flex-1 h-20">
                 <InputGroupAddon className="px-4">
@@ -262,11 +276,7 @@ function App() {
 
           {/* Calculate Button */}
           <div className="flex justify-center pt-4">
-            <Button
-              type="submit"
-              size="lg"
-              className="text-xl px-8 py-6"
-            >
+            <Button type="submit" size="lg" className="text-xl px-8 py-6">
               Calculate Best Exchange
             </Button>
           </div>
@@ -307,8 +317,7 @@ function App() {
                     <span className="text-3xl text-green-600 dark:text-green-400">
                       <span className="font-bold">
                         {(
-                          (parseFloat(divineDivine) /
-                            parseFloat(divineYours)) *
+                          (parseFloat(divineDivine) / parseFloat(divineYours)) *
                           parseFloat(amountToSell)
                         ).toLocaleString(undefined, {
                           maximumFractionDigits: 2,
