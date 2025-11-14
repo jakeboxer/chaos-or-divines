@@ -266,39 +266,6 @@ function App() {
             </Button>
           </div>
         </div>
-
-        {/* Result */}
-        {/* <div className="text-center text-2xl text-muted-foreground">
-          Best Exchange Rate
-        </div>
-        <div className="space-y-6">
-          <div className="space-y-2">
-            <div className="flex items-center gap-2">
-              <div className="flex-1 h-20">
-                <div className="px-4 py-2 flex items-center gap-2 border-4 border-green-700 bg-green-700/20 rounded-md">
-                  <img
-                    src="/images/divine.webp"
-                    alt="Divine Orb"
-                    className="size-16"
-                  />
-                  <span className="text-2xl text-green-700 font-bold">
-                    1 Divine Orb
-                  </span>
-                </div>
-              </div>
-              <span className="text-2xl text-muted-foreground">:</span>
-              <div className="flex-1 h-20">
-                <div className="px-4 py-2 flex items-center gap-2 border-4 border-green-700 bg-green-700/20 rounded-md">
-                  <BadgeDollarSign className="size-16 text-green-700" />
-
-                  <span className="text-2xl text-green-700 font-bold">
-                    75 Your Currency
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> */}
       </div>
     </div>
   );
