@@ -22,6 +22,10 @@ function App() {
     setBestExchange(result);
   };
 
+  const handleInputChange = () => {
+    setBestExchange(null);
+  };
+
   return (
     <div className="flex min-h-svh flex-col items-center justify-center bg-background p-8">
       <div className="w-full max-w-3xl space-y-8">
@@ -58,6 +62,7 @@ function App() {
                   placeholder="Chaos Orbs"
                   step="0.01"
                   className="text-2xl!"
+                  onChange={handleInputChange}
                 />
               </InputGroup>
               <span className="text-2xl text-muted-foreground">:</span>
@@ -71,6 +76,7 @@ function App() {
                   placeholder="Your Currency"
                   step="0.01"
                   className="text-2xl!"
+                  onChange={handleInputChange}
                 />
               </InputGroup>
             </div>
@@ -99,6 +105,7 @@ function App() {
                   placeholder="Divine Orbs"
                   step="0.01"
                   className="text-2xl!"
+                  onChange={handleInputChange}
                 />
               </InputGroup>
               <span className="text-2xl text-muted-foreground">:</span>
@@ -112,6 +119,7 @@ function App() {
                   placeholder="Your Currency"
                   step="0.01"
                   className="text-2xl!"
+                  onChange={handleInputChange}
                 />
               </InputGroup>
             </div>
@@ -134,6 +142,7 @@ function App() {
                   placeholder="Divine Orbs"
                   step="0.01"
                   className="text-2xl!"
+                  onChange={handleInputChange}
                 />
               </InputGroup>
               <span className="text-2xl text-muted-foreground">:</span>
@@ -151,6 +160,7 @@ function App() {
                   placeholder="Chaos Orbs"
                   step="0.01"
                   className="text-2xl!"
+                  onChange={handleInputChange}
                 />
               </InputGroup>
             </div>
