@@ -14,9 +14,51 @@ function App() {
   const [bestExchange, setBestExchange] = useState<BestExchange>(null);
   const [amountToSell, setAmountToSell] = useState<string>("");
 
-  // Placeholder calculate function - returns random result
+  // Exchange ratio inputs
+  const [chaosChaos, setChaosChaos] = useState<string>("");
+  const [chaosYours, setChaosYours] = useState<string>("");
+  const [divineDivine, setDivineDivine] = useState<string>("");
+  const [divineYours, setDivineYours] = useState<string>("");
+  const [baseDivine, setBaseDivine] = useState<string>("");
+  const [baseChaos, setBaseChaos] = useState<string>("");
+
+  // Calculate best exchange based on the three ratios
   const calculateBestExchange = (): BestExchange => {
-    return Math.random() > 0.5 ? "chaos" : "divine";
+    const chaosChaosVal = parseFloat(chaosChaos);
+    const chaosYoursVal = parseFloat(chaosYours);
+    const divineDivineVal = parseFloat(divineDivine);
+    const divineYoursVal = parseFloat(divineYours);
+    const baseDivineVal = parseFloat(baseDivine);
+    const baseChaosVal = parseFloat(baseChaos);
+
+    // Validate inputs
+    if (
+      isNaN(chaosChaosVal) ||
+      chaosChaosVal <= 0 ||
+      isNaN(chaosYoursVal) ||
+      chaosYoursVal <= 0 ||
+      isNaN(divineDivineVal) ||
+      divineDivineVal <= 0 ||
+      isNaN(divineYoursVal) ||
+      divineYoursVal <= 0 ||
+      isNaN(baseDivineVal) ||
+      baseDivineVal <= 0 ||
+      isNaN(baseChaosVal) ||
+      baseChaosVal <= 0
+    ) {
+      return null; // Invalid input
+    }
+
+    // Calculate how much Chaos you get per 1 of Your Currency via each path
+    // Path 1: Direct conversion to Chaos
+    const chaosPerYours = chaosChaosVal / chaosYoursVal;
+
+    // Path 2: Convert to Divine, then express in Chaos terms
+    const divinePerYours = divineDivineVal / divineYoursVal;
+    const chaosViaDiv = (divinePerYours * baseChaosVal) / baseDivineVal;
+
+    // Compare: which gives more Chaos per Your Currency?
+    return chaosPerYours > chaosViaDiv ? "chaos" : "divine";
   };
 
   const handleCalculate = () => {
@@ -64,7 +106,11 @@ function App() {
                   placeholder="Chaos Orbs"
                   step="0.01"
                   className="text-2xl!"
-                  onChange={handleInputChange}
+                  value={chaosChaos}
+                  onChange={(e) => {
+                    setChaosChaos(e.target.value);
+                    handleInputChange();
+                  }}
                 />
               </InputGroup>
               <span className="text-2xl text-muted-foreground">:</span>
@@ -78,7 +124,11 @@ function App() {
                   placeholder="Your Currency"
                   step="0.01"
                   className="text-2xl!"
-                  onChange={handleInputChange}
+                  value={chaosYours}
+                  onChange={(e) => {
+                    setChaosYours(e.target.value);
+                    handleInputChange();
+                  }}
                 />
               </InputGroup>
             </div>
@@ -107,7 +157,11 @@ function App() {
                   placeholder="Divine Orbs"
                   step="0.01"
                   className="text-2xl!"
-                  onChange={handleInputChange}
+                  value={divineDivine}
+                  onChange={(e) => {
+                    setDivineDivine(e.target.value);
+                    handleInputChange();
+                  }}
                 />
               </InputGroup>
               <span className="text-2xl text-muted-foreground">:</span>
@@ -121,7 +175,11 @@ function App() {
                   placeholder="Your Currency"
                   step="0.01"
                   className="text-2xl!"
-                  onChange={handleInputChange}
+                  value={divineYours}
+                  onChange={(e) => {
+                    setDivineYours(e.target.value);
+                    handleInputChange();
+                  }}
                 />
               </InputGroup>
             </div>
@@ -144,7 +202,11 @@ function App() {
                   placeholder="Divine Orbs"
                   step="0.01"
                   className="text-2xl!"
-                  onChange={handleInputChange}
+                  value={baseDivine}
+                  onChange={(e) => {
+                    setBaseDivine(e.target.value);
+                    handleInputChange();
+                  }}
                 />
               </InputGroup>
               <span className="text-2xl text-muted-foreground">:</span>
@@ -162,7 +224,11 @@ function App() {
                   placeholder="Chaos Orbs"
                   step="0.01"
                   className="text-2xl!"
-                  onChange={handleInputChange}
+                  value={baseChaos}
+                  onChange={(e) => {
+                    setBaseChaos(e.target.value);
+                    handleInputChange();
+                  }}
                 />
               </InputGroup>
             </div>
