@@ -244,7 +244,7 @@ function App() {
                 id="amount-to-sell"
                 type="number"
                 placeholder="Optional"
-                step="0.01"
+                step="1"
                 value={amountToSell}
                 onChange={(e) => {
                   setAmountToSell(e.target.value);
@@ -265,6 +265,67 @@ function App() {
               Calculate Best Exchange
             </Button>
           </div>
+
+          {/* Results Section */}
+          {bestExchange && parseFloat(amountToSell) >= 1 && (
+            <div className="mt-8 p-6 bg-green-500/10 border-4 border-green-500 rounded-lg">
+              <h2 className="text-2xl font-bold text-center mb-4">
+                Recommended Exchange
+              </h2>
+              <div className="flex items-center justify-center gap-4">
+                <div className="flex items-center gap-2">
+                  {bestExchange === "chaos" ? (
+                    <>
+                      <img
+                        src="/images/chaos.webp"
+                        alt="Chaos Orb"
+                        className="size-12"
+                      />
+                      <span className="text-3xl font-bold text-green-600 dark:text-green-400">
+                        {(
+                          (parseFloat(chaosChaos) / parseFloat(chaosYours)) *
+                          parseFloat(amountToSell)
+                        ).toLocaleString(undefined, {
+                          maximumFractionDigits: 2,
+                        })}{" "}
+                        Chaos Orbs
+                      </span>
+                    </>
+                  ) : (
+                    <>
+                      <img
+                        src="/images/divine.webp"
+                        alt="Divine Orb"
+                        className="size-12"
+                      />
+                      <span className="text-3xl text-green-600 dark:text-green-400">
+                        <span className="font-bold">
+                          {(
+                            (parseFloat(divineDivine) /
+                              parseFloat(divineYours)) *
+                            parseFloat(amountToSell)
+                          ).toLocaleString(undefined, {
+                            maximumFractionDigits: 2,
+                          })}{" "}
+                        </span>
+                        Divine Orbs
+                      </span>
+                    </>
+                  )}
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-3xl">for</span>
+                  <BadgeDollarSign className="size-12" />
+                  <span className="text-3xl">
+                    <span className="font-bold">
+                      {parseFloat(amountToSell).toLocaleString()}
+                    </span>{" "}
+                    Your Currency
+                  </span>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
