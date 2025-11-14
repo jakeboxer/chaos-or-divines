@@ -1,5 +1,4 @@
 import { BadgeDollarSign } from "lucide-react";
-import { Label } from "@/components/ui/label";
 import {
   InputGroup,
   InputGroupAddon,
@@ -131,7 +130,7 @@ function App() {
         </div>
 
         {/* Result */}
-        <div className="text-center text-2xl text-muted-foreground">
+        {/* <div className="text-center text-2xl text-muted-foreground">
           Best Exchange Rate
         </div>
         <div className="space-y-6">
@@ -161,7 +160,7 @@ function App() {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );
