@@ -92,8 +92,24 @@ function App() {
               }`}
             >
               {bestExchange === "chaos" && (
-                <div className="text-center text-lg font-bold text-green-600 dark:text-green-400">
+                <div className="text-center text-lg font-bold">
                   Best Exchange
+                </div>
+              )}
+              {bestExchange && (
+                <div
+                  className={`text-center text-sm ${
+                    bestExchange === "chaos"
+                      ? "font-bold text-green-600"
+                      : "pb-2 text-muted-foreground"
+                  }`}
+                >
+                  {(
+                    parseFloat(chaosChaos) / parseFloat(chaosYours)
+                  ).toLocaleString(undefined, {
+                    maximumFractionDigits: 2,
+                  })}{" "}
+                  Chaos per unit
                 </div>
               )}
               <div className="flex items-center gap-2">
@@ -150,8 +166,25 @@ function App() {
               }`}
             >
               {bestExchange === "divine" && (
-                <div className="text-center text-lg font-bold text-green-600 dark:text-green-400">
+                <div className="text-center text-lg font-bold">
                   Best Exchange
+                </div>
+              )}
+              {bestExchange && (
+                <div
+                  className={`text-center text-sm ${
+                    bestExchange === "divine"
+                      ? "font-bold text-green-600"
+                      : "pb-2 text-muted-foreground"
+                  }`}
+                >
+                  {(
+                    (parseFloat(divineDivine) / parseFloat(divineYours)) *
+                    (parseFloat(baseChaos) / parseFloat(baseDivine))
+                  ).toLocaleString(undefined, {
+                    maximumFractionDigits: 2,
+                  })}{" "}
+                  Chaos per unit
                 </div>
               )}
               <div className="flex items-center gap-2">
