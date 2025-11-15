@@ -437,6 +437,60 @@ function App() {
             );
           })()}
       </div>
+
+      {/* Footer */}
+      <footer className="mt-auto pt-8 pb-4 text-center text-sm text-muted-foreground">
+        <p>
+          Made by{" "}
+          <a
+            href="https://github.com/jakeboxer"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-foreground transition-colors"
+          >
+            Jake Card
+          </a>
+        </p>
+        <p className="mt-2">
+          {" "}
+          <a
+            href="https://github.com/jakeboxer/chaos-or-divines"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-foreground transition-colors"
+          >
+            View this project on GitHub
+          </a>
+        </p>
+        <p className="mt-2 flex items-center justify-center gap-3">
+          <a
+            href="https://x.com/jakecard"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-foreground transition-colors"
+          >
+            Twitter
+          </a>
+          <span>•</span>
+          <a
+            href="https://www.threads.com/@jake__card"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-foreground transition-colors"
+          >
+            Threads
+          </a>
+          <span>•</span>
+          <a
+            href="https://bsky.app/profile/jakecard.bsky.social"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-foreground transition-colors"
+          >
+            Bluesky
+          </a>
+        </p>
+      </footer>
     </div>
   );
 }
