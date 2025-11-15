@@ -7,6 +7,7 @@ import {
 } from "@/components/ui/input-group";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
+import { Analytics } from "@vercel/analytics/react";
 
 type BestExchange = "chaos" | "divine" | null;
 
@@ -578,6 +579,7 @@ function App() {
           </a>
         </p>
       </footer>
+      <Analytics />
     </div>
   );
 }
