@@ -372,7 +372,7 @@ function App() {
                 <h2 className="text-2xl font-bold text-center mb-4">
                   Recommended Exchange
                 </h2>
-                <div className="flex items-center justify-center gap-4">
+                <div className="flex items-center justify-center gap-3">
                   <div className="flex items-center gap-2">
                     {bestExchange === "chaos" ? (
                       <>
@@ -382,7 +382,7 @@ function App() {
                           className="size-12"
                         />
                         <span className="text-3xl font-bold text-green-600 dark:text-green-400">
-                          {flooredOrbs.toLocaleString()} Chaos Orbs
+                          {flooredOrbs.toLocaleString()} Chaos
                         </span>
                       </>
                     ) : (
@@ -396,7 +396,7 @@ function App() {
                           <span className="font-bold">
                             {flooredOrbs.toLocaleString()}{" "}
                           </span>
-                          Divine Orbs
+                          Divine
                         </span>
                       </>
                     )}
@@ -409,21 +409,23 @@ function App() {
                         {adjustedYours.toLocaleString(undefined, {
                           maximumFractionDigits: 3,
                         })}
-                      </span>{" "}
-                      Your Currency
+                      </span>
                     </span>
                   </div>
                 </div>
-                <div className="text-center text-sm text-muted-foreground">
-                  (<span className="font-bold">{getBestRate()}</span> Chaos per
-                  unit)
+                <div className="text-center pt-2">
+                  <span className="font-bold">{getBestRate()}</span> Chaos per
+                  unit
                 </div>
                 {showRoundingNotice && (
-                  <div className="text-center text-sm text-muted-foreground pt-2">
+                  <div className="text-center text-sm text-muted-foreground pt-8">
                     <p>
                       Note: If you want to round up to sell exactly{" "}
-                      {roundedUpYours.toLocaleString()} of your currency, <br />
-                      your exchange rate will be{" "}
+                      <span className="font-bold">
+                        {roundedUpYours.toLocaleString()}
+                      </span>{" "}
+                      of your currency, <br />
+                      your exchange rate will go down to{" "}
                       <span className="font-bold">
                         {roundedUpRate.toLocaleString(undefined, {
                           maximumFractionDigits: 3,
