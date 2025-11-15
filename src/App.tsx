@@ -55,6 +55,27 @@ function App() {
     return chaosPerYours > chaosViaDiv ? "chaos" : "divine";
   };
 
+  const getChaosRate = (yours: number) => {
+    return (parseFloat(chaosChaos) / yours).toLocaleString(undefined, {
+      maximumFractionDigits: 3,
+    });
+  };
+
+  const getDivineRate = (yours: number) => {
+    return (
+      (parseFloat(divineDivine) / yours) *
+      (parseFloat(baseChaos) / parseFloat(baseDivine))
+    ).toLocaleString(undefined, {
+      maximumFractionDigits: 3,
+    });
+  };
+
+  const getBestRate = () => {
+    return bestExchange === "chaos"
+      ? getChaosRate(parseFloat(chaosYours))
+      : getDivineRate(parseFloat(divineYours));
+  };
+
   const handleCalculate = () => {
     const result = calculateBestExchange();
     setBestExchange(result);
@@ -71,7 +92,7 @@ function App() {
 
   return (
     <div className="flex min-h-svh flex-col items-center bg-background p-8">
-      <div className="w-full max-w-2xl space-y-8">
+      <div className="w-full max-w-3xl space-y-8">
         <div className="text-center">
           <h1 className="text-3xl font-bold tracking-tight">
             Chaos or Divines?
@@ -104,11 +125,9 @@ function App() {
                       : "pb-2 text-muted-foreground"
                   }`}
                 >
-                  {(
-                    parseFloat(chaosChaos) / parseFloat(chaosYours)
-                  ).toLocaleString(undefined, {
-                    maximumFractionDigits: 2,
-                  })}{" "}
+                  <span className="font-bold">
+                    {getChaosRate(parseFloat(chaosYours))}
+                  </span>{" "}
                   Chaos per unit
                 </div>
               )}
@@ -178,12 +197,9 @@ function App() {
                       : "pb-2 text-muted-foreground"
                   }`}
                 >
-                  {(
-                    (parseFloat(divineDivine) / parseFloat(divineYours)) *
-                    (parseFloat(baseChaos) / parseFloat(baseDivine))
-                  ).toLocaleString(undefined, {
-                    maximumFractionDigits: 2,
-                  })}{" "}
+                  <span className="font-bold">
+                    {getDivineRate(parseFloat(divineYours))}
+                  </span>{" "}
                   Chaos per unit
                 </div>
               )}
@@ -316,76 +332,110 @@ function App() {
         </form>
 
         {/* Results Section */}
-        {bestExchange && parseFloat(amountToSell) >= 1 && (() => {
-          let flooredOrbs: number;
-          let adjustedYourCurrency: number;
+        {bestExchange &&
+          parseFloat(amountToSell) >= 1 &&
+          (() => {
+            let flooredOrbs: number;
+            let flooredChaos: number;
+            let adjustedYours: number;
 
-          if (bestExchange === "chaos") {
-            // Calculate floored Chaos Orbs
-            flooredOrbs = Math.floor(
-              (parseFloat(chaosChaos) / parseFloat(chaosYours)) * parseFloat(amountToSell)
-            );
-            // Recalculate Your Currency needed for that exact amount
-            adjustedYourCurrency = flooredOrbs * (parseFloat(chaosYours) / parseFloat(chaosChaos));
-          } else {
-            // Calculate floored Divine Orbs
-            flooredOrbs = Math.floor(
-              (parseFloat(divineDivine) / parseFloat(divineYours)) * parseFloat(amountToSell)
-            );
-            // Recalculate Your Currency needed for that exact amount
-            adjustedYourCurrency = flooredOrbs * (parseFloat(divineYours) / parseFloat(divineDivine));
-          }
+            if (bestExchange === "chaos") {
+              // Calculate floored Chaos Orbs
+              flooredOrbs = Math.floor(
+                (parseFloat(chaosChaos) / parseFloat(chaosYours)) *
+                  parseFloat(amountToSell)
+              );
+              flooredChaos = flooredOrbs;
+              // Recalculate Your Currency needed for that exact amount
+              adjustedYours =
+                flooredOrbs * (parseFloat(chaosYours) / parseFloat(chaosChaos));
+            } else {
+              // Calculate floored Divine Orbs
+              flooredOrbs = Math.floor(
+                (parseFloat(divineDivine) / parseFloat(divineYours)) *
+                  parseFloat(amountToSell)
+              );
+              flooredChaos =
+                flooredOrbs * (parseFloat(baseChaos) / parseFloat(baseDivine));
+              // Recalculate Your Currency needed for that exact amount
+              adjustedYours =
+                flooredOrbs *
+                (parseFloat(divineYours) / parseFloat(divineDivine));
+            }
 
-          return (
-            <div className="mt-8 p-6 bg-green-500/10 border-4 border-green-500 rounded-lg">
-              <h2 className="text-2xl font-bold text-center mb-4">
-                Recommended Exchange
-              </h2>
-              <div className="flex items-center justify-center gap-4">
-                <div className="flex items-center gap-2">
-                  {bestExchange === "chaos" ? (
-                    <>
-                      <img
-                        src="/images/chaos.webp"
-                        alt="Chaos Orb"
-                        className="size-12"
-                      />
-                      <span className="text-3xl font-bold text-green-600 dark:text-green-400">
-                        {flooredOrbs.toLocaleString()} Chaos Orbs
-                      </span>
-                    </>
-                  ) : (
-                    <>
-                      <img
-                        src="/images/divine.webp"
-                        alt="Divine Orb"
-                        className="size-12"
-                      />
-                      <span className="text-3xl text-green-600 dark:text-green-400">
-                        <span className="font-bold">
-                          {flooredOrbs.toLocaleString()}{" "}
+            const showRoundingNotice =
+              adjustedYours - Math.floor(adjustedYours) >= 0.01;
+            const roundedUpYours = Math.ceil(adjustedYours);
+            const roundedUpRate = flooredChaos / roundedUpYours;
+            return (
+              <div className="mt-8 p-6 bg-green-500/10 border-4 border-green-500 rounded-lg">
+                <h2 className="text-2xl font-bold text-center mb-4">
+                  Recommended Exchange
+                </h2>
+                <div className="flex items-center justify-center gap-4">
+                  <div className="flex items-center gap-2">
+                    {bestExchange === "chaos" ? (
+                      <>
+                        <img
+                          src="/images/chaos.webp"
+                          alt="Chaos Orb"
+                          className="size-12"
+                        />
+                        <span className="text-3xl font-bold text-green-600 dark:text-green-400">
+                          {flooredOrbs.toLocaleString()} Chaos Orbs
                         </span>
-                        Divine Orbs
-                      </span>
-                    </>
-                  )}
+                      </>
+                    ) : (
+                      <>
+                        <img
+                          src="/images/divine.webp"
+                          alt="Divine Orb"
+                          className="size-12"
+                        />
+                        <span className="text-3xl text-green-600 dark:text-green-400">
+                          <span className="font-bold">
+                            {flooredOrbs.toLocaleString()}{" "}
+                          </span>
+                          Divine Orbs
+                        </span>
+                      </>
+                    )}
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-3xl">for</span>
+                    <BadgeDollarSign className="size-12" />
+                    <span className="text-3xl">
+                      <span className="font-bold">
+                        {adjustedYours.toLocaleString(undefined, {
+                          maximumFractionDigits: 3,
+                        })}
+                      </span>{" "}
+                      Your Currency
+                    </span>
+                  </div>
                 </div>
-                <div className="flex items-center gap-2">
-                  <span className="text-3xl">for</span>
-                  <BadgeDollarSign className="size-12" />
-                  <span className="text-3xl">
-                    <span className="font-bold">
-                      {adjustedYourCurrency.toLocaleString(undefined, {
-                        maximumFractionDigits: 2,
-                      })}
-                    </span>{" "}
-                    Your Currency
-                  </span>
+                <div className="text-center text-sm text-muted-foreground">
+                  (<span className="font-bold">{getBestRate()}</span> Chaos per
+                  unit)
                 </div>
+                {showRoundingNotice && (
+                  <div className="text-center text-sm text-muted-foreground pt-2">
+                    <p>
+                      Note: If you want to round up to sell exactly{" "}
+                      {roundedUpYours.toLocaleString()} of your currency, <br />
+                      your exchange rate will be{" "}
+                      <span className="font-bold">
+                        {roundedUpRate.toLocaleString(undefined, {
+                          maximumFractionDigits: 3,
+                        })}
+                      </span>{" "}
+                      Chaos per unit.
+                    </p>
+                  </div>
+                )}
               </div>
-            </div>
-          );
-        })()}
+            );
+          })()}
       </div>
     </div>
   );
