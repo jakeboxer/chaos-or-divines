@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { BadgeDollarSign } from "lucide-react";
+import { BadgeDollarSign, ChevronDown, ChevronUp } from "lucide-react";
 import {
   InputGroup,
   InputGroupAddon,
@@ -13,6 +13,7 @@ type BestExchange = "chaos" | "divine" | null;
 function App() {
   const [bestExchange, setBestExchange] = useState<BestExchange>(null);
   const [amountToSell, setAmountToSell] = useState<string>("");
+  const [showExplanation, setShowExplanation] = useState<boolean>(false);
 
   // Exchange ratio inputs
   const [chaosChaos, setChaosChaos] = useState<string>("");
@@ -97,9 +98,92 @@ function App() {
           <h1 className="text-3xl font-bold tracking-tight">
             Chaos or Divines?
           </h1>
-          <p className="text-muted-foreground mt-2">
-            Enter exchange ratios to find the best conversion
-          </p>
+          <div className="mt-2">
+            <p className="text-muted-foreground">
+              Enter exchange rates from the Path of Exile Currency Exchange.
+              <br />
+              <button
+                type="button"
+                onClick={() => setShowExplanation(!showExplanation)}
+                className="inline-flex items-center gap-1 text-primary hover:underline"
+              >
+                What is this?
+                {showExplanation ? (
+                  <ChevronUp className="size-4" />
+                ) : (
+                  <ChevronDown className="size-4" />
+                )}
+              </button>
+            </p>
+            {showExplanation && (
+              <div className="mt-4 text-muted-foreground text-sm text-left max-w-2xl mx-auto space-y-2">
+                <p>
+                  This app tells you whether it's more profitable to sell your
+                  currency for Chaos Orbs or Divine Orbs.
+                </p>
+                <p>
+                  For example, imagine you've been{" "}
+                  <a
+                    href="https://www.poewiki.net/wiki/Stacked_Deck"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-primary hover:underline"
+                  >
+                    Stacked Deck
+                  </a>{" "}
+                  farming. You've amassed 500 Stacked Decks, and you're ready to
+                  use them to buy some new gear.
+                </p>
+                <p>
+                  You check the Currency Exchange, and see that people are
+                  buying each Stacked Deck for 1.5 Chaos Orbs, so you sell your{" "}
+                  <span className="font-bold">
+                    500 Stacked Decks for 750 Chaos Orbs
+                  </span>
+                  .
+                </p>
+                <p>
+                  Then, you go to buy a new pair of Gloves on the Trade site.
+                  You find one you like for 5 Divine Orbs, so you go back to the
+                  Currency Exchange to convert your Chaos Orbs into Divine Orbs.
+                  The ratio is 130 Chaos Orbs per Divine Orb, so you exchange{" "}
+                  <span className="font-bold">
+                    650 Chaos Orbs for 5 Divine Orbs
+                  </span>{" "}
+                  and buy your Gloves.
+                </p>
+                <p>
+                  Then, you get a sinking feeling. You go back to the Currency
+                  Exchange and check how many Stacked Decks it costs to buy 1
+                  Divine Orb directly. Turns out, Divine Orbs are trading for
+                  Stacked Decks at a ratio of 75:1. You could've sold{" "}
+                  <span className="font-bold">
+                    375 Stacked Decks for 5 Divine Orbs
+                  </span>
+                  , but by using Chaos Orbs as an intermediate, you indirectly
+                  sold{" "}
+                  <span className="font-bold">
+                    500 Stacked Decks for 5 Divine Orbs, wasting 125 Stacked
+                    Decks
+                  </span>
+                  .
+                </p>
+                <p>
+                  We've all made this mistake before, and{" "}
+                  <span className="font-bold">Chaos or Divines?</span> saves you
+                  from ever making it again. Fill in the ratios below exactly as
+                  they appear in the in-game Currency Exchange, and the app will
+                  tell you whether it's more profitable to sell your currency
+                  for Chaos Orbs or Divine Orbs.
+                </p>
+                <p>
+                  Furthermore, if you enter how many units of your currency you
+                  want to sell, the app will tell you exactly how much to sell
+                  them for, so you don't have to do any math at all.
+                </p>
+              </div>
+            )}
+          </div>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
