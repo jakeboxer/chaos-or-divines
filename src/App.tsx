@@ -381,21 +381,22 @@ function App() {
           </div>
 
           {/* Amount to Sell */}
-          <div className="flex items-center gap-4 pt-4">
+          <div className="space-y-2 pt-4">
             <Label
               htmlFor="amount-to-sell"
               className="text-lg whitespace-nowrap"
             >
-              How many of your currency do you want to sell?
+              <span className="text-muted-foreground">(Optional)</span>
+              How many units do you want to exchange?{" "}
             </Label>
-            <InputGroup className="h-16 flex-1">
+            <InputGroup className="h-16 max-w-[calc(30%-0.5rem)]">
               <InputGroupAddon className="px-4">
                 <BadgeDollarSign className="size-8" />
               </InputGroupAddon>
               <InputGroupInput
                 id="amount-to-sell"
                 type="number"
-                placeholder="Optional"
+                placeholder="How many?"
                 step="1"
                 value={amountToSell}
                 onChange={(e) => {
